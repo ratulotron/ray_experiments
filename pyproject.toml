@@ -1,0 +1,117 @@
+[tool.poetry]
+name = "gleif-ray"
+version = "0.1.0"
+description = ""
+authors = ["Ratul Minhaz <minhaz.ratul@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "**/*", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ray = {extras = ["default"], version = "^2.9.3"}
+numpy = "^1.26.4"
+psutil = "^5.9.8"
+scipy = "^1.12.0"
+jupyter = "^1.0.0"
+notebook = "^7.1.1"
+pandas = "^2.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories
+exclude = [
+    "__pycache__",
+    ".eggs",
+    ".git",
+    ".githooks",
+    ".github",
+    ".mypy_cache",
+    ".secrets",
+    ".ruff_cache",
+    ".venv",
+    ".vscode",
+    "dist",
+    "tests"
+]
+include = ["*.py"]
+line-length = 120
+show-fixes = true
+src = ["src", "tests"]
+
+target-version = "py312"
+fix = true
+force-exclude = true
+
+
+[tool.ruff.lint]
+select = [
+    "A", # flake8-builtins, checks shadowing of builtin terms
+#    "ANN", # flake8-annotations, lighter type annotation checker than MyPy
+    # "ARG",    # flake8-unused-arguments
+    "BLE", # flake8-blind-except, exceptions should always be defined
+    "C", # McCabe Cyclometric Complexity checker
+    "C4", # flake8-comprehensions, prevents generator expression mistakes
+#    "D",      # PyDocStyle
+    "E",
+    "EM", # flake8-errmsg, string formatting in exception handling
+    "F", # Pyflakes
+    "FBT", # flake8-boolean-trap
+    # "G",      # flake8-logging-format, enforces proper logging formats
+    "I", # isort import sorter
+    "INP", # flake8-no-pep420, no modules without __init__.py, helps with pytest and mypy
+    "N", # pep8-naming checker
+    # "UP",       # PyUpgrade, checks for obsolete Python syntax
+    "W",
+    "PD", # pandas-vet
+    "PL", # Pylint
+    "PT", # flake8-pytest-style
+    "RET", # flake8-return
+    "SIM", # flake8-simplify
+    # "T20",    # flake8-print, can be optional
+    # MyPy takes care of types
+    # "TCH",    # flake8-type-checking
+    "TID", # flake8-tidy-imports
+    # "TRY",     # tryceratops
+    "RUF",
+]
+ignore = [
+    #    "D211", # PyDocStyle
+    #    "TCH003", # flake8-type-checking
+    "C901", # McCabe Cyclometric Complexity checker
+    "SIM108", # Don't use ternary operators
+    #    "RET504", # flake8-return
+]
+
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+mypy-init-return = true
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-wrap-aliases = true
+# Use a single line after each import block.
+lines-after-imports = 2
+
+[tool.ruff.lint.mccabe]
+# Flag errors (`C901`) whenever the complexity level exceeds 5.
+max-complexity = 7
+
+[tool.ruff.lint.pep8-naming]
+# Allow Pydantic's `@validator` decorator to trigger class method treatment.
+classmethod-decorators = ["classmethod", "validator", "pydantic.validator"]
+
+[tool.ruff.lint.per-file-ignores]
+#"src/dags/*" = ["PLR0915", "D"]
+#"src/tenants/*" = ["D"]
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
